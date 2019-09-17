@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Python,最新收录,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="更多有趣项目及代码见于：[DesertsX/gulius-projects](https://links.jianshu.com/go?to=https%3A%2F%2Fgithub.com%2FDesertsX%2Fgulius-projects) 前言本文将带你用 neo4j快速实现一个明星关系图谱，因为拖延的缘故，正好赶上又一年的4月1日，于是将文中的几个例子顺势改成了“哥哥”张国荣。正所谓">
+<meta name="keywords" content="Python,最新收录">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一文教你用 Neo4j 快速构建明星关系图谱">
+<meta property="og:url" content="http://yoursite.com/2019/09/17/mdfiles/6abb7bb47343b23ae0a7587cd1bb5210/index.html">
+<meta property="og:site_name" content="M">
+<meta property="og:description" content="更多有趣项目及代码见于：[DesertsX/gulius-projects](https://links.jianshu.com/go?to=https%3A%2F%2Fgithub.com%2FDesertsX%2Fgulius-projects) 前言本文将带你用 neo4j快速实现一个明星关系图谱，因为拖延的缘故，正好赶上又一年的4月1日，于是将文中的几个例子顺势改成了“哥哥”张国荣。正所谓">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-08-20T09:40:55.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="一文教你用 Neo4j 快速构建明星关系图谱">
+<meta name="twitter:description" content="更多有趣项目及代码见于：[DesertsX/gulius-projects](https://links.jianshu.com/go?to=https%3A%2F%2Fgithub.com%2FDesertsX%2Fgulius-projects) 前言本文将带你用 neo4j快速实现一个明星关系图谱，因为拖延的缘故，正好赶上又一年的4月1日，于是将文中的几个例子顺势改成了“哥哥”张国荣。正所谓">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/09/17/mdfiles/6abb7bb47343b23ae0a7587cd1bb5210/">
+
+
+
+
+
+  <title>一文教你用 Neo4j 快速构建明星关系图谱 | M</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">M</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">三座面干</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/17/mdfiles/6abb7bb47343b23ae0a7587cd1bb5210/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="M">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="M">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">一文教你用 Neo4j 快速构建明星关系图谱</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-17T17:16:18+08:00">
+                2019-09-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>更多有趣项目及代码见于：[DesertsX/gulius-<br>projects](<a href="https://links.jianshu.com/go?to=https%3A%2F%2Fgithub.com%2FDesertsX%2Fgulius-" target="_blank" rel="noopener">https://links.jianshu.com/go?to=https%3A%2F%2Fgithub.com%2FDesertsX%2Fgulius-</a><br>projects)</p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本文将带你用 neo4j<br>快速实现一个明星关系图谱，因为拖延的缘故，正好赶上又一年的4月1日，于是将文中的几个例子顺势改成了“哥哥”张国荣。正所谓“巧妇难为无米之炊”，本次爬取<a href="https://links.jianshu.com/go?to=http%3A%2F%2Fwww.ylq.com%2F" target="_blank" rel="noopener">娱乐圈_专业的娱乐综合门户网站</a>下属“明星”页的“更多明星”里所有9141条数据。  </p>
+<p>![](<a href="http://upload-" target="_blank" rel="noopener">http://upload-</a><br>images.jianshu.io/upload_images/7145358-be907da2d7253ce6.png)</p>
+<p>筛选出个人主页中含“明星关系”的数据，进一步爬取并解析出后续关系图谱所需的数据。以“<a href="https://links.jianshu.com/go?to=http%3A%2F%2Fwww.ylq.com%2Fgangtai%2Fzhangguorong%2F" target="_blank" rel="noopener">张国荣-<br>个人主页</a>”为例，其直接相关的明星并不多，可见数据质量不一定多高，仅供练手，故不在此处过多纠缠。  </p>
+<p>![](<a href="http://upload-" target="_blank" rel="noopener">http://upload-</a><br>images.jianshu.io/upload_images/7145358-435e475299cd4766.png)</p>
+<p>数据到手后，存成 csv，丢到 neo4j 里，就能查询出“张国荣”的关系。</p>
+<p>![](<a href="http://upload-" target="_blank" rel="noopener">http://upload-</a><br>images.jianshu.io/upload_images/7145358-a63905e0eab1aa92.png)</p>
+<p>如果想进一步查看“张国荣”扩散出去的关系，也很方便。</p>
+<p>![](<a href="http://upload-" target="_blank" rel="noopener">http://upload-</a><br>images.jianshu.io/upload_images/7145358-fd7c7fa1dd54c5ce.png)</p>
+<h2 id="因缘际会"><a href="#因缘际会" class="headerlink" title="因缘际会"></a>因缘际会</h2><p>有没有觉得很酷炫，很想赶紧学起来。不急，neo4j 部分很简单的，所以先照旧讲讲那些“因缘际会”的事。</p>
+<p>细数过往，已经用 Gephi<br>搞过好几次关系图谱，相对于微博转发图谱和知乎大V关注图谱的中规中矩（见于：<a href="https://links.jianshu.com/go?to=https%3A%2F%2Fzhuanlan.zhihu.com%2Fp%2F28519036" target="_blank" rel="noopener">Gephi绘制微博转发图谱：以“@老婆孩子在天堂”为例</a>、<a href="https://links.jianshu.com/go?to=https%3A%2F%2Fzhuanlan.zhihu.com%2Fp%2F30216740" target="_blank" rel="noopener">374名10万+知乎大V（一）：相互关注情况</a>），拿自己的日记进行分析就显得别出心裁、令人眼前一亮，算得上自己蛮中意的作品，虽然技术细节非常粗糙（见于：<a href="https://links.jianshu.com/go?to=https%3A%2F%2Fzhuanlan.zhihu.com%2Fp%2F32721694" target="_blank" rel="noopener">2017，那些出现在日记中的人：简单的文本挖掘</a>）。不过回头看来，这几个的数据格式完全可以无缝应用到<br>neo4j 里，感兴趣的朋友可以去微博转发图谱一文里领取数据并实现一波。  </p>
+<p>![](<a href="http://upload-" target="_blank" rel="noopener">http://upload-</a><br>images.jianshu.io/upload_images/7145358-d76a0cb706449f9d.jpg)</p>
+<p>而说是“新近”其实也是半年前安利的红楼梦人物关系及事件的可视化图谱，才是正儿八经用到 neo4j<br>的，当初自己也曾兴致高昂地分析了下支撑该项目的json数据，手动写了稍显复杂的函数来提取“私通”相关的人物关系链，现在看来 neo4j<br>一行代码就能解决。（见于：<a href="https://links.jianshu.com/go?to=https%3A%2F%2Fzhuanlan.zhihu.com%2Fp%2F44584551" target="_blank" rel="noopener">安利一个惊艳的红楼梦可视化作品</a>、<a href="https://links.jianshu.com/go?to=https%3A%2F%2Fzhuanlan.zhihu.com%2Fp%2F44676544" target="_blank" rel="noopener">左手读红楼梦，右手写BUG，闲快活</a>）</p>
+<pre><code>def word2id(word):
+    df = edges_df[edges_df.label== word]
+    from_id = df[&apos;from&apos;].values.tolist()
+    to_id = df[&apos;to&apos;].values.tolist()
+    return from_id, to_id
+
+def id2label(ids):
+    tables = []
+    for ID in ids:
+        tables.append(person_df[person_df[&apos;id&apos;]==ID])
+    labels = pd.concat(tables)[&apos;label&apos;].values.tolist()
+    return labels
+
+def get_relation(from_id,to_id):
+    for from_label, to_label in zip(id2label(from_id), id2label(to_id)):
+        print(from_label, &apos;--&gt; {} --&gt;&apos;.format(word), to_label)
+
+word = &quot;私通&quot;
+from_id,to_id = word2id(word)
+get_relation(from_id,to_id)
+############################
+# 以下为输出结果
+贾蔷 --&gt; 私通 --&gt; 龄官
+贾珍 --&gt; 私通 --&gt; 秦可卿
+贾琏 --&gt; 私通 --&gt; 多姑娘
+薛蟠 --&gt; 私通 --&gt; 宝蟾
+王熙凤 --&gt; 私通 --&gt; 贾蓉
+秦可卿 --&gt; 私通 --&gt; 贾蔷
+司棋 --&gt; 私通 --&gt; 潘又安
+宝蟾 --&gt; 私通 --&gt; 薛蟠
+尤三姐 --&gt; 私通 --&gt; 贾珍
+鲍二家的 --&gt; 私通 --&gt; 贾琏
+智能儿 --&gt; 私通 --&gt; 秦钟
+万儿 --&gt; 私通 --&gt; 茗烟</code></pre><h2 id="Neo4j-安装"><a href="#Neo4j-安装" class="headerlink" title="Neo4j 安装"></a>Neo4j 安装</h2><p>Neo4j 属于图形数据库，与更广为人知的 MySQL 等关系型数据库不同，其保存的数据格式为节点和节点之间的关系，构建和查询关系数据非常高效便捷。</p>
+<p>安装过程可参考：<a href="https://links.jianshu.com/go?to=https%3A%2F%2Fwww.cnblogs.com%2Fljhdo%2Fp%2F5521577.html" target="_blank" rel="noopener">Neo4j<br>第一篇：在Windows环境中安装Neo4j</a>和<a href="https://links.jianshu.com/go?to=https%3A%2F%2Fzhuanlan.zhihu.com%2Fp%2F36616025" target="_blank" rel="noopener">Windows下安装neo4j</a>，原本想跳过这部分，但因为也遇到几个小问题，所以简单讲下。</p>
+<ul>
+<li><p>安装 Java JDK。因为之前安装 Gephi 时就弄过了，所以本次跳过。</p>
+</li>
+<li><p>从<a href="https://links.jianshu.com/go?to=https%3A%2F%2Fneo4j.com%2Fdownload-center%2F" target="_blank" rel="noopener">Neo4j官网</a>下载最新社区（Community）版本 ，解压到目录，<code>E:\neo4j-file\neo4j-community-3.5.3\</code>。  </p>
+</li>
+</ul>
+<p>![](<a href="http://upload-" target="_blank" rel="noopener">http://upload-</a><br>images.jianshu.io/upload_images/7145358-79e2e8eba726e180.png)</p>
+<ul>
+<li>启动Neo4j程序：组合键<code>Windows+R</code>，输入<code>cmd</code>，打开命令行窗口，切换到主目录<code>cd E:\neo4j-file\neo4j-community-3.5.3</code>，以管理员身份运行命令：<code>neo4j.bat console</code>后，会报错。  </li>
+</ul>
+<p>![](<a href="http://upload-" target="_blank" rel="noopener">http://upload-</a><br>images.jianshu.io/upload_images/7145358-9550d7b3af192735.png)</p>
+<ul>
+<li><p>百度解决方案，在<code>“我的电脑”-“属性”-“高级系统设置”-“环境变量”</code>,将主路径放入系统变量中<code>NEO4J_HOME=E:\neo4j-file\neo4j-community-3.5.3</code>，同时将<code>%NEO4J_HOME%\bin</code>添加到<code>path</code>中，注意英文分号分隔。</p>
+</li>
+<li><p>接着还有错误：<a href="https://links.jianshu.com/go?to=https%3A%2F%2Fblog.csdn.net%2Fweixin_38883338%2Farticle%2Fdetails%2F88377730" target="_blank" rel="noopener">Import-Module : 未能加载指定的模块“\Neo4j-Management.psd1”</a>，于是更改<code>E:\neo4j-file\neo4j-community-3.5.3\bin\neo4j.ps1</code>文件里的<code>Import-Module &quot;$PSScriptRoot\Neo4j-Management.psd1&quot;</code>为绝对路径<code>Import-Module &quot;E:\neo4j-file\neo4j-community-3.5.3\bin\Neo4j-Management.psd1&quot;</code></p>
+</li>
+<li><p>保存文件后，重新启用，红色提示消失，运行<code>Neo4j install-service</code>命令，将Neo4j服务安装在系统上。然后运行<code>Neo4j start</code>命令，启动Neo4j。  </p>
+</li>
+</ul>
+<p>![](<a href="http://upload-" target="_blank" rel="noopener">http://upload-</a><br>images.jianshu.io/upload_images/7145358-307975ca4db1b4ce.png)</p>
+<ul>
+<li>浏览器中输入 <a href="https://links.jianshu.com/go?to=http%3A%2F%2Flocalhost%3A7474" target="_blank" rel="noopener">http://localhost:7474</a> ，便可进入 neo4j 界面，初始登录名和密码均为<code>neo4j</code>，按照提醒修改密码后，便完成了准备工作。  </li>
+</ul>
+<p>![](<a href="http://upload-" target="_blank" rel="noopener">http://upload-</a><br>images.jianshu.io/upload_images/7145358-d9271a51769c02e1.png)</p>
+<h2 id="Neo4j-初体验"><a href="#Neo4j-初体验" class="headerlink" title="Neo4j 初体验"></a>Neo4j 初体验</h2><p>安装完成后，在以后的岁月里，只需在命令行窗口进入<code>E:\neo4j-file\neo4j-community-3.5.3\bin</code>文件夹，运行<code>neo4j
+start</code>便可启动<br>neo4j，然后打开网址<code>http://localhost:7474</code>，输入初始登录名和密码均neo4j或修改后的密码即可。</p>
+<pre><code>cd /d E:
+cd E:\neo4j-file\neo4j-community-3.5.3\bin
+neo4j start</code></pre><p>接着便可以用 Cypher<br>查询语言（CQL，像Oracle数据库具有查询语言SQL，Neo4j具有CQL作为查询语言）创建节点和关系。可阅读w3cschool的教程<br>快速入门：<a href="https://links.jianshu.com/go?to=https%3A%2F%2Fwww.w3cschool.cn%2Fneo4j%2Fneo4j_cql_introduction.html" target="_blank" rel="noopener">Neo4j -<br>CQL简介</a>  </p>
+<p>![](<a href="http://upload-" target="_blank" rel="noopener">http://upload-</a><br>images.jianshu.io/upload_images/7145358-9aea5f7d71dfe0f6.png)</p>
+<p>下面是一些入门的语句，简单了解下，后面实现明星关系图谱就够用了。</p>
+<pre><code># 创建具有带属性（name ，age）的 People 节点
+create(p:People{name:&quot;Alex&quot;, age:20});
+
+create(p:People{name:&quot;Tom&quot;, age:22});
+
+# 匹配 People节点，并返回其 name 和 age 属性
+match (p:People) return p.name, p.age
+
+# 匹配所有 age 为20的 People 节点
+match (p:People{age:20}) RETURN p
+
+# 创建 Alex 和 Tom 之间单向的 Friend 关系
+create(:People{name:&quot;Alex&quot;, age:20})-[r:Friends]-&gt;(:People{name:&quot;Tom&quot;, age:22})
+
+# 
+match p=()-[r:RELATION]-&gt;() return p LIMIT 25
+
+# 匹配所有节点并查看其中25个
+match (n) return n LIMIT 25;
+
+# 简单粗暴删除所有节点及节点相关的关系
+match (n) detach delete n</code></pre><h2 id="数据爬取"><a href="#数据爬取" class="headerlink" title="数据爬取"></a>数据爬取</h2><p>爬虫部分不进行过多讲解，[一直翻页](<a href="https://links.jianshu.com/go?to=http%3A%2F%2Fwww.ylq.com%2Fstar%2Flist-" target="_blank" rel="noopener">https://links.jianshu.com/go?to=http%3A%2F%2Fwww.ylq.com%2Fstar%2Flist-</a><br>all-all-all-all-all-all-<br>all-1.html)直到获取全部9141条明星姓名及个人主页链接即可。完整代码见于：[DesertsX/gulius-<br>projects](<a href="https://links.jianshu.com/go?to=https%3A%2F%2Fgithub.com%2FDesertsX%2Fgulius-" target="_blank" rel="noopener">https://links.jianshu.com/go?to=https%3A%2F%2Fgithub.com%2FDesertsX%2Fgulius-</a><br>projects)  </p>
+<p>![](<a href="http://upload-" target="_blank" rel="noopener">http://upload-</a><br>images.jianshu.io/upload_images/7145358-2f2dd517f63f07a6.png)</p>
+<p>另外提取了明星图片链接等信息，本次没用到，可以忽略的，但如果能在关系图谱中加入人物图片，效果会更佳，只是还不知道如何实现。</p>
+<pre><code>import time
+import random
+import requests
+from lxml import etree
+import pandas as pd
+from fake_useragent import UserAgent
+
+ylq_all_star_ids = pd.DataFrame(columns = [&apos;num&apos;, &apos;name&apos;, &apos;star_id&apos;, &apos;star_url&apos;, &apos;image&apos;])
+total_pages=153
+for page in range(1, total_pages+1):
+    ua = UserAgent()
+    url = &apos;http://www.ylq.com/star/list-all-all-all-all-all-all-all-{}.html&apos;
+    r = requests.get(url=url.format(page), headers=headers)
+    r.encoding = r.apparent_encoding
+    dom = etree.HTML(r.text)
+
+    # &apos;http://www.ylq.com/neidi/xingyufei/&apos;
+    star_urls = dom.xpath(&apos;//div[@class=&quot;fContent&quot;]/ul/li/a/@href&apos;)
+    star_ids = [star_url.split(&apos;/&apos;)[-2] for star_url in star_urls]
+    star_names = dom.xpath(&apos;//div[@class=&quot;fContent&quot;]/ul/li/a/h2/text()&apos;)
+    star_images = dom.xpath(&apos;//div[@class=&quot;fContent&quot;]/ul/li/a/img/@src&apos;)
+
+    print(page, len(star_urls), len(star_ids), len(star_images), len(star_names))
+
+    for i in range(len(star_ids)):
+        ylq_all_star_ids = ylq_all_star_ids.append({&apos;num&apos;:int((page-1)*60+i+1), &apos;name&apos;: star_names[i],
+                                                    &apos;star_id&apos;:star_ids[i], &apos;star_url&apos;: star_urls[i],
+                                                    &apos;image&apos;:star_images[i]},ignore_index=True)
+    # if page%5 == 0:
+    #    time.sleep(random.randint(0,2))
+print(&quot;爬虫结束！&quot;)</code></pre><p>验收下数据，没问题。</p>
+<p>![](<a href="http://upload-" target="_blank" rel="noopener">http://upload-</a><br>images.jianshu.io/upload_images/7145358-32913952c2fe9387.png)</p>
+<p>由于并不是多有明星的个人主页都含有“明星关系”的数据，所有筛选出含关系数据的1263条链接。注意这部分比较耗时，可自行优化加速，后续有空再改进。</p>
+<pre><code>star_has_relations = []
+for num, url in enumerate(star_urls):
+    ua = UserAgent()
+    headers ={&quot;User-Agent&quot;: ua.random,
+              &apos;Host&apos;: &apos;www.ylq.com&apos;}
+    try:
+        r = requests.get(url=url, headers =headers, timeout=5)
+        r.encoding = r.apparent_encoding
+
+        if &apos;starRelation&apos; in r.text:
+            star_has_relations.append(url)
+            print(num, &quot;Bingo!&quot;, end=&apos; &apos;)
+        if num%100==0:
+            print(num, end=&apos; &apos;)
+    except:
+        print(num, star_has_relations)
+#     if (num+index)%50==0:
+#         time.sleep(random.randint(0,2))</code></pre><p>接着有针对性的爬取这部分关系数据即可，当然爬虫部分可根据自己喜好，合并一些步骤，比如筛选含关系链接与爬取关系数据这个一步到位也可以。</p>
+<pre><code>datas = []
+ylq_all_star_relations = pd.DataFrame(columns = [&apos;num&apos;, &apos;subject&apos;, &apos;relation&apos;, &apos;object&apos;,
+                                                 &apos;subject_url&apos;, &apos;object_url&apos;, &apos;obeject_image&apos;])
+for num, subject_url in enumerate(star_has_relations):
+    ua = UserAgent()
+    headers ={&quot;User-Agent&quot;: ua.random,
+              &apos;Host&apos;: &apos;www.ylq.com&apos;}
+    try:
+        r = requests.get(url=subject_url, headers =headers, timeout=5)
+        r.encoding = r.apparent_encoding
+        dom = etree.HTML(r.text)
+        subject = dom.xpath(&apos;//div/div/div/h1/text()&apos;)[0]
+        relations = dom.xpath(&apos;//div[@class=&quot;hd starRelation&quot;]/ul/li/a/span/em/text()&apos;)
+        objects = dom.xpath(&apos;//div[@class=&quot;hd starRelation&quot;]/ul/li/a/p/text()&apos;)
+        object_urls = dom.xpath(&apos;//div[@class=&quot;hd starRelation&quot;]/ul/li/a/@href&apos;)
+        object_images = dom.xpath(&apos;//div[@class=&quot;hd starRelation&quot;]/ul/li/a/img/@src&apos;)
+        for i in range(len(relations)):
+            relation_data = {&apos;num&apos;: int(num+1), &apos;subject&apos;: subject, &apos;relation&apos;: relations[i],
+                             &apos;object&apos;: objects[i], &apos;subject_url&apos;:subject_url,
+                             &apos;object_url&apos;: object_urls[i], &apos;obeject_image&apos;:object_images[i]}
+            datas.append(relation_data)
+            ylq_all_star_relations = ylq_all_star_relations.append(relation_data,
+                                                                   ignore_index=True)
+        print(num, subject, end=&apos; &apos;)
+    except:
+        print(num, datas)
+#     if num%20 == 0:
+#         time.sleep(random.randint(0,2))
+#         print(num, &apos;sleep a moment&apos;)</code></pre><p>获取的明星关系数据格式如下，后面还考虑到情况，但貌似都可以删减掉，所以在此就不赘述了，完整代码见于：[DesertsX/gulius-<br>projects](<a href="https://links.jianshu.com/go?to=https%3A%2F%2Fgithub.com%2FDesertsX%2Fgulius-" target="_blank" rel="noopener">https://links.jianshu.com/go?to=https%3A%2F%2Fgithub.com%2FDesertsX%2Fgulius-</a><br>projects)  </p>
+<p>![](<a href="http://upload-" target="_blank" rel="noopener">http://upload-</a><br>images.jianshu.io/upload_images/7145358-80bc811c50ddedf2.png)</p>
+<h2 id="构建明星关系图谱"><a href="#构建明星关系图谱" class="headerlink" title="构建明星关系图谱"></a>构建明星关系图谱</h2><p>如果你对爬虫不感兴趣，只是想知道如何导入现有的csv数据，然后用neo4j构建关系图谱，那么直接从这里开始实践即可，毕竟这次的数据也是无偿提供的。</p>
+<p>手动去掉一些无用的列数据后，将<code>ylq_star_nodes.csv</code>和<code>ylq_star_relations.csv</code><br>两个csv文件，放到<code>E:\neo4j-file\neo4j-community-3.5.3\import</code>目录下，然后分别执行下面两个命令，就完成了关系图谱的创建！是的，一秒完成，当然数据量大的话，可能会等上一小会。</p>
+<pre><code>LOAD CSV  WITH HEADERS FROM &apos;file:///ylq_star_nodes.csv&apos; AS data CREATE (:star{starname:data.name, starid:data.id});
+
+LOAD CSV  WITH HEADERS FROM &quot;file:///ylq_star_relations.csv&quot; AS relations
+MATCH (entity1:star{starname:relations.subject}) , (entity2:star{starname:relations.object})
+CREATE (entity1)-[:rel{relation: relations.relation}]-&gt;(entity2)</code></pre><p>之后就可以分别查询各种信息了。</p>
+<pre><code># 查某人全部关系
+return (:star{starname:&quot;张国荣&quot;})--&gt;();</code></pre><p>![](<a href="http://upload-" target="_blank" rel="noopener">http://upload-</a><br>images.jianshu.io/upload_images/7145358-278f1290adde48c6.png)</p>
+<pre><code># 查某人朋友的朋友（5层关系）
+match p=(n:star{starname:&quot;张国荣&quot;})-[*..5]-&gt;() return p limit 50;</code></pre><p>![](<a href="http://upload-" target="_blank" rel="noopener">http://upload-</a><br>images.jianshu.io/upload_images/7145358-91cdbeea03111997.png)</p>
+<pre><code># 查询特定关系
+match p=()-[:rel{relation:&quot;旧爱&quot;}]-&gt;() return p LIMIT 25;</code></pre><p>![](<a href="http://upload-" target="_blank" rel="noopener">http://upload-</a><br>images.jianshu.io/upload_images/7145358-80a7e53f3d6b2660.png)</p>
+<pre><code># 使用函数，查询张国荣与张卫健的最短路径
+match p=shortestpath((:star{starname:&quot;张国荣&quot;})-[*..5]-&gt;(:star{starname:&quot;张卫健&quot;})) return p;</code></pre><p>![](<a href="http://upload-" target="_blank" rel="noopener">http://upload-</a><br>images.jianshu.io/upload_images/7145358-8f8e25d849e717e1.png)</p>
+<p>更多有趣的命令可自行学习和尝试，其他好玩的数据集也可按个人兴趣去耍耍。</p>
+<blockquote>
+<p>文章来源于转载, 如有疑问, 请联系我,转载地址:<a href="https://www.jianshu.com/p/9b62a99fb0d0" target="_blank" rel="noopener">https://www.jianshu.com/p/9b62a99fb0d0</a> </p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Python/" rel="tag"># Python</a>
+          
+            <a href="/tags/最新收录/" rel="tag"># 最新收录</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/09/17/mdfiles/5b8fa81fa012ec708a4294714b475fc3/" rel="next" title="史上最全Python数据分析学习路径图">
+                <i class="fa fa-chevron-left"></i> 史上最全Python数据分析学习路径图
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/09/17/mdfiles/8a4467641079c897292d0e8b21fdbac4/" rel="prev" title="福州|厦门 测试/测试开发招聘">
+                福州|厦门 测试/测试开发招聘 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">M</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">103</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#因缘际会"><span class="nav-number">2.</span> <span class="nav-text">因缘际会</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Neo4j-安装"><span class="nav-number">3.</span> <span class="nav-text">Neo4j 安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Neo4j-初体验"><span class="nav-number">4.</span> <span class="nav-text">Neo4j 初体验</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据爬取"><span class="nav-number">5.</span> <span class="nav-text">数据爬取</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#构建明星关系图谱"><span class="nav-number">6.</span> <span class="nav-text">构建明星关系图谱</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">M</span>
+
+  
+</div>
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

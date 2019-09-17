@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Python,热门推荐,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="小编收集了一些较为高效的Python爬虫框架。分享给大家。 1.ScrapyScrapy是一个为了爬取网站数据，提取结构性数据而编写的应用框架。可以应用在包括数据挖掘，信息处理或存储历史数据等一系列的程序中。。用这个框架可以轻松爬下来如亚马逊商品信息之类的数据。 ![](http://upload-images.jianshu.io/upload_images/2509688-6c2ef8c9c6">
+<meta name="keywords" content="Python,热门推荐">
+<meta property="og:type" content="article">
+<meta property="og:title" content="8个最高效的Python爬虫框架，你用过几个？">
+<meta property="og:url" content="http://yoursite.com/2018/06/01/mdfiles/084f8b13c4ed58b835588d3df243041b/index.html">
+<meta property="og:site_name" content="M">
+<meta property="og:description" content="小编收集了一些较为高效的Python爬虫框架。分享给大家。 1.ScrapyScrapy是一个为了爬取网站数据，提取结构性数据而编写的应用框架。可以应用在包括数据挖掘，信息处理或存储历史数据等一系列的程序中。。用这个框架可以轻松爬下来如亚马逊商品信息之类的数据。 ![](http://upload-images.jianshu.io/upload_images/2509688-6c2ef8c9c6">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-08-20T09:40:54.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="8个最高效的Python爬虫框架，你用过几个？">
+<meta name="twitter:description" content="小编收集了一些较为高效的Python爬虫框架。分享给大家。 1.ScrapyScrapy是一个为了爬取网站数据，提取结构性数据而编写的应用框架。可以应用在包括数据挖掘，信息处理或存储历史数据等一系列的程序中。。用这个框架可以轻松爬下来如亚马逊商品信息之类的数据。 ![](http://upload-images.jianshu.io/upload_images/2509688-6c2ef8c9c6">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/06/01/mdfiles/084f8b13c4ed58b835588d3df243041b/">
+
+
+
+
+
+  <title>8个最高效的Python爬虫框架，你用过几个？ | M</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">M</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">三座面干</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/01/mdfiles/084f8b13c4ed58b835588d3df243041b/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="M">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="M">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">8个最高效的Python爬虫框架，你用过几个？</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-01T12:02:00+08:00">
+                2018-06-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>小编收集了一些较为高效的Python爬虫框架。分享给大家。</p>
+<h4 id="1-Scrapy"><a href="#1-Scrapy" class="headerlink" title="1.Scrapy"></a>1.Scrapy</h4><p>Scrapy是一个为了爬取网站数据，提取结构性数据而编写的应用框架。<br>可以应用在包括数据挖掘，信息处理或存储历史数据等一系列的程序中。。用这个框架可以轻松爬下来如亚马逊商品信息之类的数据。</p>
+<p>![](<a href="http://upload-" target="_blank" rel="noopener">http://upload-</a><br>images.jianshu.io/upload_images/2509688-6c2ef8c9c678be91.png)</p>
+<blockquote>
+<p>项目地址：<a href="https://scrapy.org/" target="_blank" rel="noopener">https://scrapy.org/</a></p>
+</blockquote>
+<h4 id="2-PySpider"><a href="#2-PySpider" class="headerlink" title="2.PySpider"></a>2.PySpider</h4><p>pyspider<br>是一个用python实现的功能强大的网络爬虫系统，能在浏览器界面上进行脚本的编写，功能的调度和爬取结果的实时查看，后端使用常用的数据库进行爬取结果的存储，还能定时设置任务与任务优先级等。</p>
+<p>![](<a href="http://upload-" target="_blank" rel="noopener">http://upload-</a><br>images.jianshu.io/upload_images/2509688-e45d0c803611420a.png)</p>
+<blockquote>
+<p>项目地址：<a href="https://github.com/binux/pyspider" target="_blank" rel="noopener">https://github.com/binux/pyspider</a></p>
+</blockquote>
+<h4 id="3-Crawley"><a href="#3-Crawley" class="headerlink" title="3.Crawley"></a>3.Crawley</h4><p>Crawley可以高速爬取对应网站的内容，支持关系和非关系数据库，数据可以导出为JSON、XML等。</p>
+<p>![](<a href="http://upload-" target="_blank" rel="noopener">http://upload-</a><br>images.jianshu.io/upload_images/2509688-89e23ab8d4b4e903.png)</p>
+<blockquote>
+<p>项目地址：<a href="http://project.crawley-cloud.com/" target="_blank" rel="noopener">http://project.crawley-cloud.com/</a></p>
+</blockquote>
+<h4 id="4-Portia"><a href="#4-Portia" class="headerlink" title="4.Portia"></a>4.Portia</h4><p>Portia是一个开源可视化爬虫工具，可让您在不需要任何编程知识的情况下爬取网站！简单地注释您感兴趣的页面，Portia将创建一个蜘蛛来从类似的页面提取数据。</p>
+<p>![](<a href="http://upload-" target="_blank" rel="noopener">http://upload-</a><br>images.jianshu.io/upload_images/2509688-0849feb979b2fde7.png)</p>
+<blockquote>
+<p>项目地址：<a href="https://github.com/scrapinghub/portia" target="_blank" rel="noopener">https://github.com/scrapinghub/portia</a></p>
+</blockquote>
+<h4 id="5-Newspaper"><a href="#5-Newspaper" class="headerlink" title="5.Newspaper"></a>5.Newspaper</h4><p>Newspaper可以用来提取新闻、文章和内容分析。使用多线程，支持10多种语言等。</p>
+<p>![](<a href="http://upload-" target="_blank" rel="noopener">http://upload-</a><br>images.jianshu.io/upload_images/2509688-bf2922cd8414ff5d.png)</p>
+<blockquote>
+<p>项目地址：<a href="https://github.com/codelucas/newspaper" target="_blank" rel="noopener">https://github.com/codelucas/newspaper</a></p>
+</blockquote>
+<h4 id="6-Beautiful-Soup"><a href="#6-Beautiful-Soup" class="headerlink" title="6.Beautiful Soup"></a>6.Beautiful Soup</h4><p>Beautiful Soup<br>是一个可以从HTML或XML文件中提取数据的Python库.它能够通过你喜欢的转换器实现惯用的文档导航,查找,修改文档的方式.Beautiful<br>Soup会帮你节省数小时甚至数天的工作时间。</p>
+<p>![](<a href="http://upload-" target="_blank" rel="noopener">http://upload-</a><br>images.jianshu.io/upload_images/2509688-b330a2e53487c73d.png)</p>
+<blockquote>
+<p>项目地址：<a href="https://www.crummy.com/software/BeautifulSoup/bs4/doc/" target="_blank" rel="noopener">https://www.crummy.com/software/BeautifulSoup/bs4/doc/</a></p>
+</blockquote>
+<h4 id="7-Grab"><a href="#7-Grab" class="headerlink" title="7.Grab"></a>7.Grab</h4><p>Grab是一个用于构建Web刮板的Python框架。借助Grab，您可以构建各种复杂的网页抓取工具，从简单的5行脚本到处理数百万个网页的复杂异步网站抓取工具。Grab提供一个API用于执行网络请求和处理接收到的内容，例如与HTML文档的DOM树进行交互。</p>
+<p>![](<a href="http://upload-" target="_blank" rel="noopener">http://upload-</a><br>images.jianshu.io/upload_images/2509688-8ffec73e247a1808.png)</p>
+<blockquote>
+<p>项目地址：<a href="http://docs.grablib.org/en/latest/#grab-spider-user-manual" target="_blank" rel="noopener">http://docs.grablib.org/en/latest/#grab-spider-user-manual</a></p>
+</blockquote>
+<h4 id="8-Cola"><a href="#8-Cola" class="headerlink" title="8.Cola"></a>8.Cola</h4><p>Cola是一个分布式的爬虫框架，对于用户来说，只需编写几个特定的函数，而无需关注分布式运行的细节。任务会自动分配到多台机器上，整个过程对用户是透明的。</p>
+<p>![](<a href="http://upload-" target="_blank" rel="noopener">http://upload-</a><br>images.jianshu.io/upload_images/2509688-abefd879ef18c40a.png)</p>
+<blockquote>
+<p>项目地址：<a href="https://github.com/chineking/cola" target="_blank" rel="noopener">https://github.com/chineking/cola</a></p>
+</blockquote>
+<p>本文作者：雁横</p>
+<p><a href="http://click.aliyun.com/m/51282/" target="_blank" rel="noopener">阅读原文</a></p>
+<p>本文为云栖社区原创内容，未经允许不得转载。</p>
+<blockquote>
+<p>文章来源于转载, 如有疑问, 请联系我,转载地址:<a href="https://www.jianshu.com/p/7180086cd8ab" target="_blank" rel="noopener">https://www.jianshu.com/p/7180086cd8ab</a> </p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Python/" rel="tag"># Python</a>
+          
+            <a href="/tags/热门推荐/" rel="tag"># 热门推荐</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/01/084f8b13c4ed58b835588d3df243041b/" rel="next" title="8个最高效的Python爬虫框架，你用过几个？">
+                <i class="fa fa-chevron-left"></i> 8个最高效的Python爬虫框架，你用过几个？
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/12/mdfiles/ee9ba6133e144782e5d6058343098f99/" rel="prev" title>
+                 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">M</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">103</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Scrapy"><span class="nav-number">1.</span> <span class="nav-text">1.Scrapy</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-PySpider"><span class="nav-number">2.</span> <span class="nav-text">2.PySpider</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-Crawley"><span class="nav-number">3.</span> <span class="nav-text">3.Crawley</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-Portia"><span class="nav-number">4.</span> <span class="nav-text">4.Portia</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-Newspaper"><span class="nav-number">5.</span> <span class="nav-text">5.Newspaper</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-Beautiful-Soup"><span class="nav-number">6.</span> <span class="nav-text">6.Beautiful Soup</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-Grab"><span class="nav-number">7.</span> <span class="nav-text">7.Grab</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-Cola"><span class="nav-number">8.</span> <span class="nav-text">8.Cola</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">M</span>
+
+  
+</div>
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
