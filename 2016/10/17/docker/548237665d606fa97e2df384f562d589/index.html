@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="在路上,旅行,">
+  <meta name="keywords" content="docker,">
 
 
 
@@ -80,19 +80,19 @@
 
 
 <meta name="description" content="前言之前在《环境管理》那一篇分享中介绍了我在管理环境上的一些经验，但是并没有介绍docker的使用细节。但有些小伙伴们还是比较感兴趣的。关于docker的教程网上其实也是满天飞，各种命令和原理的文章，中文的英文的数不胜数。所以我就不从安装开始，介绍各种命令了。这么讲我觉得我也讲不出什么花来，但是网上的这些教程大多数都是理论层次的。他们告诉你这么命令是干什么的，却没有用一条线把他们穿起来告诉你怎么用">
-<meta name="keywords" content="在路上,旅行">
+<meta name="keywords" content="docker">
 <meta property="og:type" content="article">
 <meta property="og:title" content="&lt;span class=&quot;title&quot;&gt;测试开发之路 (工具篇)--Docker&lt;&#x2F;span&gt;">
 <meta property="og:url" content="http://yoursite.com/2016/10/17/docker/548237665d606fa97e2df384f562d589/index.html">
 <meta property="og:site_name" content="M">
 <meta property="og:description" content="前言之前在《环境管理》那一篇分享中介绍了我在管理环境上的一些经验，但是并没有介绍docker的使用细节。但有些小伙伴们还是比较感兴趣的。关于docker的教程网上其实也是满天飞，各种命令和原理的文章，中文的英文的数不胜数。所以我就不从安装开始，介绍各种命令了。这么讲我觉得我也讲不出什么花来，但是网上的这些教程大多数都是理论层次的。他们告诉你这么命令是干什么的，却没有用一条线把他们穿起来告诉你怎么用">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/photo/2016/97b17f2862ca21f2e5fec70b9073041d.png">
-<meta property="og:updated_time" content="2019-09-30T07:44:49.816Z">
+<meta property="og:image" content="https://testerhome.com/photo/2016/97b17f2862ca21f2e5fec70b9073041d.png">
+<meta property="og:updated_time" content="2019-09-30T09:22:24.797Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="&lt;span class=&quot;title&quot;&gt;测试开发之路 (工具篇)--Docker&lt;&#x2F;span&gt;">
 <meta name="twitter:description" content="前言之前在《环境管理》那一篇分享中介绍了我在管理环境上的一些经验，但是并没有介绍docker的使用细节。但有些小伙伴们还是比较感兴趣的。关于docker的教程网上其实也是满天飞，各种命令和原理的文章，中文的英文的数不胜数。所以我就不从安装开始，介绍各种命令了。这么讲我觉得我也讲不出什么花来，但是网上的这些教程大多数都是理论层次的。他们告诉你这么命令是干什么的，却没有用一条线把他们穿起来告诉你怎么用">
-<meta name="twitter:image" content="http://yoursite.com/photo/2016/97b17f2862ca21f2e5fec70b9073041d.png">
+<meta name="twitter:image" content="https://testerhome.com/photo/2016/97b17f2862ca21f2e5fec70b9073041d.png">
 
 
 
@@ -385,7 +385,7 @@
 <h2 id="什么是docker"><a href="#什么是docker" class="headerlink" title="什么是docker"></a>什么是docker</h2><p>官网上和各类文章中都对docker作出了明确的阐释，但是这些定义过于专业和高大上了。所以他姥爷这个土鳖就用俺们村的大白话给大家说一下。</p>
 <p>Docker<br>这个单词英文原意是码头工人，搬运工的意思，这个搬运工搬运的是各种应用。docker是一种容器技术。有的小伙伴们不了解什么是容器的话就把它当虚拟机吧。虽然docker不是虚拟机，但是大家可以把它当成虚拟机用。我们把各种应用（例如我们测试环境中的各种服务）制作成镜像（镜像制作很简单）<br>，docker这个搬运工要搬运的东西就是这个镜像，它可以启动一个或者N个容器并把镜像搬运进去，这就是为什么我在《环境管理》那篇分享中可以一下子启动近30套测试环境的原因。只要我有镜像，在任何有docker服务的机器中都可以迅速拉起N套测试环境来。</p>
 <h2 id="在demo中学习"><a href="#在demo中学习" class="headerlink" title="在demo中学习"></a>在demo中学习</h2><p>干说概念性的东西容易让人懵逼。我们还是像学习编程从hello world开始一样，我们先演示一个demo，从迅速搭建一个test link应用开始。</p>
-<h3 id="mysql"><a href="#mysql" class="headerlink" title="mysql"></a>mysql</h3><p>首先我们需要一个mysql服务来存储test link的数据。按照上面说的，我们需要一个mysql镜像。 那么我们如何制作镜像呢？<br>docker的好处之一就是 <strong>共享</strong> ，他人制作的镜像我们可以下载下来直接使用。怎么做呢？ 我们可以去docker hub中直接搜寻mysql的官方镜像<br><img src="/photo/2016/97b17f2862ca21f2e5fec70b9073041d.png" alt></p>
+<h3 id="mysql"><a href="#mysql" class="headerlink" title="mysql"></a>mysql</h3><p>首先我们需要一个mysql服务来存储test link的数据。按照上面说的，我们需要一个mysql镜像。 那么我们如何制作镜像呢？<br>docker的好处之一就是 <strong>共享</strong> ，他人制作的镜像我们可以下载下来直接使用。怎么做呢？ 我们可以去docker hub中直接搜寻mysql的官方镜像<br><img src="https://testerhome.com/photo/2016/97b17f2862ca21f2e5fec70b9073041d.png" alt></p>
 <p>具体的使用细节官方镜像附带的说明中写的很清楚，很简单。我们来用一下吧。首先是下载mysql 5.5的镜像。命令如下：</p>
 <pre><code>docker pull mysql:5.5  </code></pre><p>运行过后我们下载了镜像. docker pull 这条命令就是在docker hub上搜寻并下载一个镜像。接下来我们运行一下 docker images |<br>grep mysql 来查看本地下载的mysql镜像。docker images的意思就是列出所有的镜像。</p>
 <p>OK,我们有了mysql的镜像了，那么我们怎么使用这个镜像呢。 来来来，我们关键的地方到了。请看下面的脚本</p>
@@ -482,9 +482,7 @@ cd /opt/web
       
         <div class="post-tags">
           
-            <a href="/tags/在路上/" rel="tag"># 在路上</a>
-          
-            <a href="/tags/旅行/" rel="tag"># 旅行</a>
+            <a href="/tags/docker/" rel="tag"># docker</a>
           
         </div>
       
