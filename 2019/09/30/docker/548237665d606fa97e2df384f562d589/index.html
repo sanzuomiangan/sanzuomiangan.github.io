@@ -79,22 +79,20 @@
 
 
 
-<meta name="description" content="背景他姥爷又来了，他姥爷又忍不住寂寞打算码字了。 今天他姥爷想聊聊 环境的问题。因为这里面有很多的坑，环境管理的好能让生产力翻倍，管理不好会团队痛苦不堪。这个是我的感受。记得也就3个月前吧，项目刚启动。开发，测试，产品都在使用同一套环境。是每个模块的开发人员出一个人临时糊出来的环境。我们有个习惯就是每个迭代结束后都开一个总结会，记得那时候大家抱怨最多的就是环境了。这么多人公用一套环境，难免互相影响">
+<meta name="description" content="前言之前在《环境管理》那一篇分享中介绍了我在管理环境上的一些经验，但是并没有介绍docker的使用细节。但有些小伙伴们还是比较感兴趣的。关于docker的教程网上其实也是满天飞，各种命令和原理的文章，中文的英文的数不胜数。所以我就不从安装开始，介绍各种命令了。这么讲我觉得我也讲不出什么花来，但是网上的这些教程大多数都是理论层次的。他们告诉你这么命令是干什么的，却没有用一条线把他们穿起来告诉你怎么用">
 <meta name="keywords" content="在路上,旅行">
 <meta property="og:type" content="article">
-<meta property="og:title" content="&lt;span class=&quot;title&quot;&gt;测试开发之路--环境管理&lt;&#x2F;span&gt;">
-<meta property="og:url" content="http://yoursite.com/2019/09/30/6fe5b3242d2cff9fd91d1fb7d5745fb0/index.html">
+<meta property="og:title" content="&lt;span class=&quot;title&quot;&gt;测试开发之路 (工具篇)--Docker&lt;&#x2F;span&gt;">
+<meta property="og:url" content="http://yoursite.com/2019/09/30/docker/548237665d606fa97e2df384f562d589/index.html">
 <meta property="og:site_name" content="M">
-<meta property="og:description" content="背景他姥爷又来了，他姥爷又忍不住寂寞打算码字了。 今天他姥爷想聊聊 环境的问题。因为这里面有很多的坑，环境管理的好能让生产力翻倍，管理不好会团队痛苦不堪。这个是我的感受。记得也就3个月前吧，项目刚启动。开发，测试，产品都在使用同一套环境。是每个模块的开发人员出一个人临时糊出来的环境。我们有个习惯就是每个迭代结束后都开一个总结会，记得那时候大家抱怨最多的就是环境了。这么多人公用一套环境，难免互相影响">
+<meta property="og:description" content="前言之前在《环境管理》那一篇分享中介绍了我在管理环境上的一些经验，但是并没有介绍docker的使用细节。但有些小伙伴们还是比较感兴趣的。关于docker的教程网上其实也是满天飞，各种命令和原理的文章，中文的英文的数不胜数。所以我就不从安装开始，介绍各种命令了。这么讲我觉得我也讲不出什么花来，但是网上的这些教程大多数都是理论层次的。他们告诉你这么命令是干什么的，却没有用一条线把他们穿起来告诉你怎么用">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://testerhome.com/photo/2016/f0307458d8aace17d7c8ae6a5cfed228.png">
-<meta property="og:image" content="https://testerhome.com/photo/2016/60f791c5a1260a3288d0afe51d949ff6.png">
-<meta property="og:image" content="https://testerhome.com/photo/2016/d7f628d7f4e76b4d107effca19bc1ca7.png">
-<meta property="og:updated_time" content="2019-09-30T07:26:22.672Z">
+<meta property="og:image" content="http://yoursite.com/photo/2016/97b17f2862ca21f2e5fec70b9073041d.png">
+<meta property="og:updated_time" content="2019-09-30T07:38:50.358Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="&lt;span class=&quot;title&quot;&gt;测试开发之路--环境管理&lt;&#x2F;span&gt;">
-<meta name="twitter:description" content="背景他姥爷又来了，他姥爷又忍不住寂寞打算码字了。 今天他姥爷想聊聊 环境的问题。因为这里面有很多的坑，环境管理的好能让生产力翻倍，管理不好会团队痛苦不堪。这个是我的感受。记得也就3个月前吧，项目刚启动。开发，测试，产品都在使用同一套环境。是每个模块的开发人员出一个人临时糊出来的环境。我们有个习惯就是每个迭代结束后都开一个总结会，记得那时候大家抱怨最多的就是环境了。这么多人公用一套环境，难免互相影响">
-<meta name="twitter:image" content="https://testerhome.com/photo/2016/f0307458d8aace17d7c8ae6a5cfed228.png">
+<meta name="twitter:title" content="&lt;span class=&quot;title&quot;&gt;测试开发之路 (工具篇)--Docker&lt;&#x2F;span&gt;">
+<meta name="twitter:description" content="前言之前在《环境管理》那一篇分享中介绍了我在管理环境上的一些经验，但是并没有介绍docker的使用细节。但有些小伙伴们还是比较感兴趣的。关于docker的教程网上其实也是满天飞，各种命令和原理的文章，中文的英文的数不胜数。所以我就不从安装开始，介绍各种命令了。这么讲我觉得我也讲不出什么花来，但是网上的这些教程大多数都是理论层次的。他们告诉你这么命令是干什么的，却没有用一条线把他们穿起来告诉你怎么用">
+<meta name="twitter:image" content="http://yoursite.com/photo/2016/97b17f2862ca21f2e5fec70b9073041d.png">
 
 
 
@@ -124,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/09/30/6fe5b3242d2cff9fd91d1fb7d5745fb0/">
+  <link rel="canonical" href="http://yoursite.com/2019/09/30/docker/548237665d606fa97e2df384f562d589/">
 
 
 
 
 
-  <title><span class="title">测试开发之路--环境管理</span> | M</title>
+  <title><span class="title">测试开发之路 (工具篇)--Docker</span> | M</title>
   
 
 
@@ -289,7 +287,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/30/6fe5b3242d2cff9fd91d1fb7d5745fb0/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/30/docker/548237665d606fa97e2df384f562d589/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="M">
@@ -306,7 +304,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline"><span class="title">测试开发之路--环境管理</span></h1>
+          <h1 class="post-title" itemprop="name headline"><span class="title">测试开发之路 (工具篇)--Docker</span></h1>
         
 
         <div class="post-meta">
@@ -318,7 +316,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-30T15:26:22+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-30T15:38:50+08:00">
                 2019-09-30
               </time>
             
@@ -343,17 +341,6 @@
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/Crawl/" itemprop="url" rel="index">
                     <span itemprop="name">Crawl</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Crawl/docker/" itemprop="url" rel="index">
-                    <span itemprop="name">docker</span>
                   </a>
                 </span>
 
@@ -394,27 +381,89 @@
       
 
       
-        <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>他姥爷又来了，他姥爷又忍不住寂寞打算码字了。 今天他姥爷想聊聊 <strong>环境</strong><br>的问题。因为这里面有很多的坑，环境管理的好能让生产力翻倍，管理不好会团队痛苦不堪。这个是我的感受。记得也就3个月前吧，项目刚启动。开发，测试，产品都在使用同一套环境。是每个模块的开发人员出一个人临时糊出来的环境。我们有个习惯就是每个迭代结束后都开一个总结会，记得那时候大家抱怨最多的就是环境了。这么多人公用一套环境，难免互相影响，一会这个服务要重启，一会那个服务因为哪个bug挂了。再搭建几套环境也不现实，系统太复杂了，暂时没人能独立搭出来，维护的成本也太高。反正那时候大家都挺痛苦的。正好那时候基本没开发出什么功能，我还比较闲。而且本来我就在研究CI的方案，正好涉及到环境部署的问题。于是就想换个思路，以前做自动化部署大多是给测试人员服务的，这次给所有人定制环境。让每人都人手一套自己的环境。于是就这么干下去了。</p>
-<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><p>万事开头难，整合所有模块的部署细节往往是苦难的。因为这时候还没有配置管理，所有配置都是散落在各个不同的目录里。而且可能会变化。反正这时候就克服一下，以后有了配置管理方案就好了。</p>
-<h2 id="技术选型"><a href="#技术选型" class="headerlink" title="技术选型"></a>技术选型</h2><p>谈到环境，首先想到的就是自动化管理。我们之所以只占用一个QA很少部分的时间就支撑起20多套产品环境，依靠的就是高度自动化。一般自动化部署要么就是传统的脚本驱动模式，要么就是虚拟化技术。我选择了docker，有多方面的原因吧：</p>
-<ul>
-<li>一个是公司本来就是用docker搭建的基础服务，大家对docker也都熟悉了，起码使用上没什么障碍了。</li>
-<li>二是我希望给每个人都搭建一套独立的环境，未来可能起几十个甚至上百个环境，所以传统的脚本模式就不行了，新建环境成本太高，要解决很多依赖问题。而且产品中有几个模块的语言是node.js，scala，c++。都是编译时间长的典范，用传统的脚本驱动搭环境感觉一定会慢的像蜗牛。换成docker就很好了，首先由于虚拟化技术，做好镜像以后我们就没有依赖问题了。同时分成几个容器去部署不同的模块也可以加快部署时间。</li>
-<li>三是对资源的利用，docker本就是以轻量级和使用方便闻名。搭建这么多环境，我觉得也就只有docker能把资源利用到最好了。不会搭建个几套环境就把资源占满。</li>
-</ul>
-<h2 id="成型的结构图"><a href="#成型的结构图" class="headerlink" title="成型的结构图"></a>成型的结构图</h2><p><img src="https://testerhome.com/photo/2016/f0307458d8aace17d7c8ae6a5cfed228.png" alt><br>画的不好大家见谅。每一个模块都是一个容器，每套环境都有独立的数据库，共用一个hadoop集群和config<br>server。但是有一个容器装了单机版的集群做备用，以防万一。记得第一次启用的时候，一下子开了13套环境（这个数字还真不吉利。。。），到现在将近30套。基本做到了人手一套环境。其中细节不表了，有兴趣的学习一下docker吧。总之多语言构成的产品比较麻烦，每种语言在部署的时候都或多或少的有些问题</p>
-<h2 id="开发环境定制"><a href="#开发环境定制" class="headerlink" title="开发环境定制"></a>开发环境定制</h2><p>一开始就说了，环境不仅是给测试人员用，还要给开发人员用。于是就需要定制一些东西满足开发人员的要求。为了满足开发人员的需求就必然跟传统CI中的环境部署冲突。传统的测试环境部署方式一般是下面这样的：<br><img src="https://testerhome.com/photo/2016/60f791c5a1260a3288d0afe51d949ff6.png" alt><br>这样的部署方式有一个问题，环境中可能只有一个部署的jar包。也许这对测试人员来说足够了，能看log就行。<br>但对于开发人员来说就有诸多不便。我们发现开发人员很喜欢在环境中直接编译源文件做开发。有时候可能fix一个bug很简单，直接在环境中编译一下重新启动服务就试一下了。<br>这比写代码，push，merge，重新拉取代码，重新部署要快速简便的多。我们开发人员大多都用idea，大多都配置了remote<br>debug。所以只有一个jar包肯定是不行的。我们要在环境中保持一个完整的开发环境，例如完成的项目的git目录，git client，ssh，mysql<br>client，local<br>编码设置等等等等。同时要有很方便的方式重启服务，不能让开发人员在重启服务的时候那么麻烦的走重新启动容器，拉取代码等等这一套流程。那么解决方案是：</p>
-<ul>
-<li>抛弃编译服务器，直接在容器内编译，启动服务。做法也很简单，使用docker的entrypoint机制。在启动容器的时候拉取代码，编译并启动服务。</li>
-<li>在基础镜像中安装git client，ssh，mysql client等等等服务</li>
-<li>定制好各种重新启动服务等等的方便的功能性脚本。反正能自动化的就自动化起来。</li>
-</ul>
-<h2 id="测试环境定制"><a href="#测试环境定制" class="headerlink" title="测试环境定制"></a>测试环境定制</h2><p>测试环境跟开发环境又有一点不一样。 我们在测试环境中最怕的是什么？<br>部署一个环境的时候发现连冒烟测试都过不去。bug直接block测试流程，这时候只能等着开发修好bug再重新部署了。这很影响效率。 对于产品人员呢？<br>也一样的，产品人员有时候要跟老大，要跟客户演示，因为客户可能会来公司的。产品人员要演示最新的功能。但最新的功能可能还没有发布。需要在公司内找个环境演示。<br>所以不论是测试人员还是产品人员，都有一个稳定环境的需求。但其实我们避免不了bug的，我们部署一次环境的时候难免当时就有什么严重的bug。解决方案一般有两个，一个是把以前的部署的包做备份。另一个是学运维在线上的策略<br>–蓝绿部署。 我选择了后者，所以测试环境的结构就变成了下面这个样子：<br><img src="https://testerhome.com/photo/2016/d7f628d7f4e76b4d107effca19bc1ca7.png" alt><br>两套环境共用一个数据库和集群。 开发人员在提测的时候部署在stable1，<br>下一次部署的时候我们就部署在stable2。如果stable2是有问题的，例如冒烟测试没过。那么就切换回stable1测试。stable2就打回去让开发修bug。如此循环往复。我们保证始终有一套环境是可用的。</p>
-<h2 id="线上部署的定制"><a href="#线上部署的定制" class="headerlink" title="线上部署的定制"></a>线上部署的定制</h2><p>通过刚才的介绍我们发现我们是没有编译服务器的，我们在各自的容器里自行编译。这时候运维的同学就比较蛋疼。因为他们需要部署包来在线上或者进场进行部署。而我们的产品是比较复杂的，多语言构成的产品。让运维同学再搞一套编译服务器来生产部署包的成本也比较高。所以我跟运维的小伙伴商量了一下，还是复用我们现有的东西。其实就是我们新加了一个脚本。在已启动的经过测试的容器中把部署包copy出来。也就是说，我们的环境被当成了编译服务器</p>
-<h2 id="配置管理"><a href="#配置管理" class="headerlink" title="配置管理"></a>配置管理</h2><p>这个东西单独拿出来说是因为它比较重要，我们在没有配置管理方案之前，部署是很痛苦的。因为配置文件散落在各个地方，掌握这些信息的成本太高，而且十分不利于扩展。增加或者修改配置的结果往往都是要更改docker的镜像并让所有人重新部署环境。所以大家在做环境管理的时候，一定要先推配置管理方案。否则你会痛苦死。这是血淋淋的教训。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>暂时就分享到这吧，其实我们做的还有很多不足，毕竟我们的项目才成立了几个月，好多东西不完善。现在docker的容器都是跑在一个机器里。之后一旦环境多了，肯定把docker做成集群。还有一些镜像的减肥，脚本的优化，环境自检的机制等等都需要完善。这里就当抛砖引玉了。大家晚安，俺陪媳妇睡觉去了</p>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>之前在《环境管理》那一篇分享中介绍了我在管理环境上的一些经验，但是并没有介绍docker的使用细节。但有些小伙伴们还是比较感兴趣的。关于docker的教程网上其实也是满天飞，各种命令和原理的文章，中文的英文的数不胜数。所以我就不从安装开始，介绍各种命令了。这么讲我觉得我也讲不出什么花来，但是网上的这些教程大多数都是理论层次的。他们告诉你这么命令是干什么的，却没有用一条线把他们穿起来告诉你怎么用他们。所以今天我来用我们在测试中实际遇到的例子给大家穿一条线出来。让没用过docker的小伙伴们大概知道docker是怎么用的，有多简单，通过例子把大概的概念和理论了解一下。<br>这样就不会被漫天高大上的专有名字搞懵逼了。</p>
+<h2 id="什么是docker"><a href="#什么是docker" class="headerlink" title="什么是docker"></a>什么是docker</h2><p>官网上和各类文章中都对docker作出了明确的阐释，但是这些定义过于专业和高大上了。所以他姥爷这个土鳖就用俺们村的大白话给大家说一下。</p>
+<p>Docker<br>这个单词英文原意是码头工人，搬运工的意思，这个搬运工搬运的是各种应用。docker是一种容器技术。有的小伙伴们不了解什么是容器的话就把它当虚拟机吧。虽然docker不是虚拟机，但是大家可以把它当成虚拟机用。我们把各种应用（例如我们测试环境中的各种服务）制作成镜像（镜像制作很简单）<br>，docker这个搬运工要搬运的东西就是这个镜像，它可以启动一个或者N个容器并把镜像搬运进去，这就是为什么我在《环境管理》那篇分享中可以一下子启动近30套测试环境的原因。只要我有镜像，在任何有docker服务的机器中都可以迅速拉起N套测试环境来。</p>
+<h2 id="在demo中学习"><a href="#在demo中学习" class="headerlink" title="在demo中学习"></a>在demo中学习</h2><p>干说概念性的东西容易让人懵逼。我们还是像学习编程从hello world开始一样，我们先演示一个demo，从迅速搭建一个test link应用开始。</p>
+<h3 id="mysql"><a href="#mysql" class="headerlink" title="mysql"></a>mysql</h3><p>首先我们需要一个mysql服务来存储test link的数据。按照上面说的，我们需要一个mysql镜像。 那么我们如何制作镜像呢？<br>docker的好处之一就是 <strong>共享</strong> ，他人制作的镜像我们可以下载下来直接使用。怎么做呢？ 我们可以去docker hub中直接搜寻mysql的官方镜像<br><img src="/photo/2016/97b17f2862ca21f2e5fec70b9073041d.png" alt></p>
+<p>具体的使用细节官方镜像附带的说明中写的很清楚，很简单。我们来用一下吧。首先是下载mysql 5.5的镜像。命令如下：</p>
+<pre><code>docker pull mysql:5.5  </code></pre><p>运行过后我们下载了镜像. docker pull 这条命令就是在docker hub上搜寻并下载一个镜像。接下来我们运行一下 docker images |<br>grep mysql 来查看本地下载的mysql镜像。docker images的意思就是列出所有的镜像。</p>
+<p>OK,我们有了mysql的镜像了，那么我们怎么使用这个镜像呢。 来来来，我们关键的地方到了。请看下面的脚本</p>
+<pre><code>export name=testlink_mysql  
+export ip=172.27.1.221  
+
+docker rm -f $name  
+docker run --name=$name -e MYSQL_ROOT_PASSWORD=root -itd -v /home/testlink_data:/var/lib/mysql --net=none  mysql:5.5  
+
+pipework br0 $name $ip/20@172.27.0.1  </code></pre><p>接下来我们讲解一下这些命令。从docker rm -f开始把，这条命令是删除一个容器，还记得什么是容器么？<br>容器是镜像的载体。我们的镜像要放在容器里运行的。所以如果有同名的容器我们先删除它，当然这一步不是必须得。 接下来我们看docker run的命令，<br>这条命令就是用镜像去启动一个容器，命令的最后的那个mysql:5.5就是镜像的名称（我们之前用docker<br>pull下载的），是不是很简单。这样我们就启动了这个mysql的服务了。当然中间有一些参数我来详细的讲解一下。</p>
+<ol>
+<li>--name：定义容器的名称。我们可以通过docker ps来查看所有容器。</li>
+<li>-e: 启动容器时向容器内传递一个环境变量，这个参数可以有多个。 这是非常重要的一个参数，有些时候我们在制作镜像的时候并不清楚一些行为到底要怎么定义，需要在启动容器的时候决定。例如这个例子里我们用-e 向mysql容器传递了root的密码。mysql容器在启动的时候会读取这个环境变量并设置root密码</li>
+<li>-v： 这同样是一个很重要的参数，它是一个挂载的概念。是在主机和容器间共享数据的方式。用 <strong>:</strong> 分割，左边是宿主机的文件目录，右边是容器的目录。这个参数在我们做数据备份的时候很有用。在这个例子我把mysql存储数据的目录挂载到了主机的一个目录里。这样就算容器被人不小心删除了，数据也不会丢失的。</li>
+<li>--net：这个参数指定docker的网络模式，我一般设置为none，因为我要分配固定ip 最后一个命令，pipework，它是一个第三方的工具，可以给容器分配固定ip。有兴趣的可以在网上搜一下这个工具的使用。</li>
+</ol>
+<p>OK，运行这个脚本后，我们的数据库服务就搭建好了。是不是很简单。你不是运维的同学，你不必懂mysql得配置，你只需要下载官方镜像直接使用就可以了。</p>
+<h3 id="test-link"><a href="#test-link" class="headerlink" title="test link"></a>test link</h3><p>接下来我们搞一搞test link吧。同样现在docker hub上搜一下有没有人已经做好了test<br>link的镜像。很幸运的我发现也是有的。我们运行一下docker pull otechlabs/testlink下载即可。我们同样用下面的命令启动test<br>link容器</p>
+<pre><code>export name=testlink_new  
+export ip=172.27.1.220  
+
+docker rm -f $name  
+docker run -itd --name=$name --hostname=$name --net=none -v /home/testlink_upload:/var/testlink testlink  
+
+pipework br0 $name $ip/20@172.27.0.1  </code></pre><p>命令跟上面mysql一样，也很简单，唯一需要注意的是我挂载目录的位置是test<br>link保存附件的文件夹，testlink不是所有数据都保存在数据库里的，所以这部分也要挂载出来保存。容器启动后，我们使用ip登录test<br>link，见证奇迹的时刻就到了。剩下的你只需要根据test<br>link的页面配置一下数据库了。到这里我们就搭建了一个在测试工作中很常见的用例管理工具。当然到了这里我们还有些不太完美。就是到了这里我们的数据虽然都挂载到宿主机上保存了。但是test<br>link的配置缺没有，这是容器启动后，我们在页面上配置的。这部分的信息我们没有保存。所以我们需要修改一下镜像了。如下：</p>
+<pre><code>FROM otechlabs/testlink  
+
+ADD files /var/www/testlink  </code></pre><p>这是一个Dockerfile，制作镜像的语法文件。我们使用Dockerfile的语法来扩展一个镜像。 第一行的FROM<br>命令大家看到了，说明是继承自另一个镜像的。也就是说我们对test<br>link镜像做扩展。熟悉编程的小伙伴们理解起来一定很容易，你就把它当成面向对象语言中的继承就行了。 接下来我们用ADD命令，把宿主机中的<br>files文件夹下所有的文件都copy 到镜像中的/var/www/testlink 文件夹中。 这里说一下我把test<br>link的config文件存在了files文件中，所以也就是说config文件现在被copy到了test<br>link容器里了。接下来我们运行一个简单的命令构建镜像。</p>
+<pre><code>docker build -t testlink .  </code></pre><p>这是构建一个惊险的命令，要在Dockerfile的目录下执行。这样我们新的镜像就做好了。我们用新的镜像代替之前启动test<br>link的旧镜像。一切就OK了，完美了。test link的配置文件也就存到了镜像里了。</p>
+<p>这是一个搭建test link的简单应用。我们经理了下载官方镜像并使用的过程，扩展镜像满足我们自己需要的过程。<br>我们可以用这个思想搭建各种基础服务。那下面我们再说复杂一点的场景</p>
+<h2 id="更复杂点的场景"><a href="#更复杂点的场景" class="headerlink" title="更复杂点的场景"></a>更复杂点的场景</h2><p>现在说说我们的测试环境，要搭建测试环境肯定就没有那么成熟的镜像给我们用了。我们需要自己专门定制一个镜像出来，首先我们要做一个基础镜像，解决依赖的问题，例如我们的产品是java的项目，那我们要装：maven，jdk，git，ssh等等。下面看一下Dockerfile的例子：</p>
+<pre><code>FROM docker.io/ludalex/docker-java7-maven-aws-git  
+MAINTAINER sungaofei(sungaofei@4paradigm.com)  
+
+ADD files /root  
+
+RUN apt-get update \  
+    &amp;&amp; apt-get install wget -y \  
+    &amp;&amp; apt-get install -y openssh-server \  
+    &amp;&amp; /etc/init.d/ssh start \  
+    &amp;&amp; apt-get install -y oracle-java7-set-default \  
+    &amp;&amp; cd /tmp \  
+    &amp;&amp; wget http://apache.claz.org/thrift/0.9.3/thrift-0.9.3.tar.gz \  
+    &amp;&amp; tar -zxvf thrift-0.9.3.tar.gz \  
+    &amp;&amp; cd thrift-0.9.3 \  
+    &amp;&amp; ./configure &amp;&amp; make \  
+    &amp;&amp; make install \  
+    &amp;&amp; cd /opt \  
+    &amp;&amp; mkdir web \  </code></pre><p>大家看到首先我还是继承了一个从docker<br>hub上下载的基础镜像，通过名字就可以看出来，这个基础镜像里已经有了maven，git之类的东西。但还不够，我们需要再下载一点东西。RUN<br>这个命令就是执行shell 命令的。 它最大的作用就是安装一些依赖包。在RUN里面，最常用的就是apt-<br>get了。上面的例子我下载并安装了ssh的组件包，jdk7，thrift的RPC框架包等等。然后再运行一个 docker built -t<br>我们就做好这个基础镜像了，这解决了我们的依赖问题。以后再制作任何java镜像我们都可以通过扩展这个基础镜像来做。<br>接下来我们看一下部署镜像的Dockerfile</p>
+<pre><code>FROM 4paradigm/dango2.0-test-base-new  
+ADD files /root  
+
+ENTRYPOINT [&quot;/root/entrypoint.sh&quot;]  </code></pre><p>可以看到这个镜像貌似没干什么。但是，恩？ ENTRYPOINT 是个什么鬼？<br>这个很重要，非常重要。大家记住了，这是启动容器后第一个运行的命令。也就是说，它是容器的启动命令，它是容器启动后干的第一个事。我们通常把启动服务的脚本放在这里。我们同ADD<br>命令把一些启动脚本放在容器的/root目录下。然后通过ENTRYPOINT，运行启动脚本。我们来看一下entrypoint.sh这个脚本都干了什么</p>
+<pre><code>cd /root  
+echo &quot;setup is running&quot;  
+
+# deploy simba  
+cd /opt/web  
+
+git clone git@git.4paradigm.com:prophet/simba.git  
+
+
+cd /opt/web/simba  
+git checkout ${simba_branch}  
+
+if [ -n ${simba_commit_id} ]  
+then  
+    echo &quot;reset to commit_id ${simba_commit_id}&quot;  
+    git reset ${simba_commit_id}  
+fi  
+
+mvn -DskipTests clean package -U  
+
+cd /opt/web  
+./startserver.sh  </code></pre><p>中间我删除了一些干扰代码，真实的情况比这个复杂些。看到这个脚本里我们拉取了git上的代码。编译并运行了启动脚本。大家注意这里我读取了一些环境变量，例如<br><strong>${simba_branch}</strong> ，这就是通过启动容器的时候（也就是docker run）的 -e的参数传递进来的环境变量。<br>这样我们就做到了容器的参数化。接下来我们运行 docker<br>run就可以了，我们的这个java项目的测试环境的搭建起来了。当然我中间刻意忽略了一些细节免得大家被干扰。但是我们用docekr搭建测试环境的流程大概就是这样的了。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>今天他姥爷就讲到这里吧，我用了两个在工作中用到docker的简单例子来给各位扫一下盲。特别详细的教程他姥爷真的木有时间写了，大家去翻官方文档吧，平时工作比较忙。女王大人还怀孕了，而且女王大人对我这种老是坐在电脑面前码字或者撸代码不管老婆孩子的行为很是不满了。所以各位见谅，我的这个系列文章真的没办法很详细的写个教程。就是带大家入个门，让大家看一下大概怎么做的，做成什么样子。很多细节大家要自己探索和阅读文档了。</p>
 <blockquote>
-<p>文章来源于转载, 如有疑问, 请联系我,转载地址:<a href="https://testerhome.com/topics/6058" target="_blank" rel="noopener">https://testerhome.com/topics/6058</a> </p>
+<p>文章来源于转载, 如有疑问, 请联系我,转载地址:<a href="https://testerhome.com/topics/6126" target="_blank" rel="noopener">https://testerhome.com/topics/6126</a> </p>
 </blockquote>
 
       
@@ -448,8 +497,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/09/30/mdfiles/0fa37d0c544576ab0c57b71e0f078cb3/" rel="next" title="国庆最“火”的赏秋之旅，自驾本溪丹东，中国枫叶最红最艳的地方">
-                <i class="fa fa-chevron-left"></i> 国庆最“火”的赏秋之旅，自驾本溪丹东，中国枫叶最红最艳的地方
+              <a href="/2019/09/30/docker/6fe5b3242d2cff9fd91d1fb7d5745fb0/" rel="next" title="<span class=" title">测试开发之路--环境管理">
+                <i class="fa fa-chevron-left"></i> <span class="title">测试开发之路--环境管理</span>
               </a>
             
           </div>
@@ -457,6 +506,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/09/30/docker/4869bd4ce88ff2db944f37cef2836284/" rel="prev" title="<span class=" title">测试开发之路 (工具篇)--assertJ-db 科普">
+                <span class="title">测试开发之路 (工具篇)--assertJ-db 科普</span> <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -533,7 +586,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">108</span>
+                  <span class="site-state-item-count">116</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -544,7 +597,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">1</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -555,7 +608,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -588,7 +641,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#准备工作"><span class="nav-number">2.</span> <span class="nav-text">准备工作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#技术选型"><span class="nav-number">3.</span> <span class="nav-text">技术选型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#成型的结构图"><span class="nav-number">4.</span> <span class="nav-text">成型的结构图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开发环境定制"><span class="nav-number">5.</span> <span class="nav-text">开发环境定制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试环境定制"><span class="nav-number">6.</span> <span class="nav-text">测试环境定制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线上部署的定制"><span class="nav-number">7.</span> <span class="nav-text">线上部署的定制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置管理"><span class="nav-number">8.</span> <span class="nav-text">配置管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">9.</span> <span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是docker"><span class="nav-number">2.</span> <span class="nav-text">什么是docker</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在demo中学习"><span class="nav-number">3.</span> <span class="nav-text">在demo中学习</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql"><span class="nav-number">3.1.</span> <span class="nav-text">mysql</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#test-link"><span class="nav-number">3.2.</span> <span class="nav-text">test link</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更复杂点的场景"><span class="nav-number">4.</span> <span class="nav-text">更复杂点的场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
