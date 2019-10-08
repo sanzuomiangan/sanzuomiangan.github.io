@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="docker,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="前言我们应该都有过这么一段迷茫期，不论我们设计多少测试用例，编写多少自动化测试脚本，执行多少测试计划，产品质量依然没有按照我们想的那样发展。原来开发延期的依然延期，原来提测bug多的依然多，线上漏测的依然漏测。我们貌似都已经习惯了这些场景：延期，压缩测试时间，需求不对，部署事故，漏测。后来我们知道了Google的工程生产力团队，后来我们知道了CI,CD,Devops，后来我们知道了光靠QA来保证质">
+<meta name="keywords" content="docker">
+<meta property="og:type" content="article">
+<meta property="og:title" content="&lt;span class=&quot;title&quot;&gt;测试开发之路--让我们把产品质量变得更好 (测试人的转型探索)&lt;&#x2F;span&gt;">
+<meta property="og:url" content="http://yoursite.com/2019/10/08/mdfiles/d2ca941799705e015bf1d3929adfa7c6/index.html">
+<meta property="og:site_name" content="M">
+<meta property="og:description" content="前言我们应该都有过这么一段迷茫期，不论我们设计多少测试用例，编写多少自动化测试脚本，执行多少测试计划，产品质量依然没有按照我们想的那样发展。原来开发延期的依然延期，原来提测bug多的依然多，线上漏测的依然漏测。我们貌似都已经习惯了这些场景：延期，压缩测试时间，需求不对，部署事故，漏测。后来我们知道了Google的工程生产力团队，后来我们知道了CI,CD,Devops，后来我们知道了光靠QA来保证质">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-10-08T01:58:21.195Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="&lt;span class=&quot;title&quot;&gt;测试开发之路--让我们把产品质量变得更好 (测试人的转型探索)&lt;&#x2F;span&gt;">
+<meta name="twitter:description" content="前言我们应该都有过这么一段迷茫期，不论我们设计多少测试用例，编写多少自动化测试脚本，执行多少测试计划，产品质量依然没有按照我们想的那样发展。原来开发延期的依然延期，原来提测bug多的依然多，线上漏测的依然漏测。我们貌似都已经习惯了这些场景：延期，压缩测试时间，需求不对，部署事故，漏测。后来我们知道了Google的工程生产力团队，后来我们知道了CI,CD,Devops，后来我们知道了光靠QA来保证质">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/10/08/mdfiles/d2ca941799705e015bf1d3929adfa7c6/">
+
+
+
+
+
+  <title><span class="title">测试开发之路--让我们把产品质量变得更好 (测试人的转型探索)</span> | M</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">M</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">三座面干</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/08/mdfiles/d2ca941799705e015bf1d3929adfa7c6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="M">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="M">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline"><span class="title">测试开发之路--让我们把产品质量变得更好 (测试人的转型探索)</span></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-08T09:58:21+08:00">
+                2019-10-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Crawl/" itemprop="url" rel="index">
+                    <span itemprop="name">Crawl</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>我们应该都有过这么一段迷茫期，不论我们设计多少测试用例，编写多少自动化测试脚本，执行多少测试计划，产品质量依然没有按照我们想的那样发展。原来开发延期的依然延期，原来提测bug多的依然多，线上漏测的依然漏测。我们貌似都已经习惯了这些场景：延期，压缩测试时间，需求不对，部署事故，漏测。后来我们知道了Google的工程生产力团队，后来我们知道了CI,CD,Devops，后来我们知道了光靠QA来保证质量是不行的。。。。越来越多的新概念冲击着原有的理念。很多的QA大部门被裁撤，我们想着不要被淘汰，所以我们要改变，要进化，要去做以前没想过的事。</p>
+<h2 id="以质量为中心，发散式工作"><a href="#以质量为中心，发散式工作" class="headerlink" title="以质量为中心，发散式工作"></a>以质量为中心，发散式工作</h2><p>之前我说过这种理念，我希望不仅仅局限于测试行为这一条路。任何能提升质量的途径我都要尝试。上一篇帖子里我也写过这样一句话：</p>
+<blockquote>
+<p>我开始了各种各样的，无所不用极其的野路子之旅来提升质量，提升生产力。</p>
+</blockquote>
+<p>提升产品质量有两种路子，一种是测试行为，这是最直接的方式。这一点我们研究了很久我不多说了。只是我们发现了很多的问题。我列几个常见的</p>
+<ol>
+<li>如果RD开发延期了，压缩了测试时间。我们有足够的时间去做测试么？</li>
+<li>如果RD提测的质量不好，全是bug。我们有足够的时间把bug都修完再重新测试么？</li>
+<li>如果系统过于复杂，过于高科技，有些东西我们不测不了。RD能够自测么？</li>
+<li>如果都开发完了，产品才发现与需求不符，我们有足够的时间重新来过么？</li>
+<li>如果团队每个人都因为这些原因疲于加班。我们还有时间创新么？</li>
+</ol>
+<p>我们现在面临了一些我们控制不了的风险，例如开发延期，提测质量差。也许以前我会说那是RD的事，我不care。但是最后加班加成狗质量还上不去的状况就会找上我。前面我说要改变，<br><strong>所以我们得做点什么，把技术能力转变为生产力，提升团队所有人的效率</strong><br>。于是我们开始了探寻第二条路子去解决这些问题。他是软性的，是间接的，是以提升生产力和效率的方式间接的解决上面我们遇到的风险。</p>
+<h2 id="技术能力转变为生产力"><a href="#技术能力转变为生产力" class="headerlink" title="技术能力转变为生产力"></a>技术能力转变为生产力</h2><p>我以前写过CI的文章，详细到每个分支的策略是怎么制定的，写过环境管理的文章，详细到开发，测试，预演，预上线环境每一个都怎么做的。写过单元测试架构，详细到Jenkins上每个配置都怎么设置的。我还做过一些别的零散的，运维的事只不过没写出来。这些都是我做过的努力。我发现要想让其他人对质量负责，就得给他们提供更简单的方式。例如：</p>
+<ol>
+<li>我们希望RD能够自测，那我们就得有简单的方式让RD自测，太麻烦太耗费时间是不行的。 </li>
+<li>我们希望RD不拖延进度，那就别让琐碎的环境问题拖延他们。别让需求不明让他们返工。</li>
+<li>我们希望产品人员更好的预演产品，设计需求。那就给他们个保持代码更新并稳定的环境让他们使用。</li>
+<li>我们希望运维人员更好更快的部署产品，别再部署时期出问题。那就严格的按运维的标准去编译，出包，部署，测试。保证到了运维手里的东西，一定是可靠的。</li>
+<li>我们希望运维和RD有更多的时间提升架构，监控，运维自动化。那就让他们从琐事中解放出来。例如我承担了除生产环境之外的一切环境部署自动化管理。所有模块的自动化编译出包的工作。</li>
+</ol>
+<p>说个详细点的例子。也许对大部分团队来说，自测和联调一般不是什么问题。搭建个环境还不是分分钟的事。但我们团队不是，业务复杂，架构复杂，配置复杂，多语言构建。每个模块的编译和部署方式可能都不一样。靠各自模快的RD一起拼是拼不出几个环境的。大家在一个环境上互相踩踏，互相影响。<br>我们期望RD能从整个产品的角度来设计，来自测。希望除了单元测试以外他们能从UI上从产品的角度测试。但没有一个专属的他个人的环境让他随意破坏那是绝对不靠谱的。所以我们才提供了一套以docker为基础的自动化部署开发环境的机制。注意这里是开发环境，不是测试环境。有什么区别呢，区别是测试不需要编译环境，不需要源代码，测试要模拟真实环境所以测试是按产品环境的结构部署的，所以测试只需要部署包。<br>但开发不是，它希望这个环境能供他随意折腾。可以随意编译源代码，可以随意在环境中开发。那是他的实验室，怎么搞他说的算。<br>所以我们给开发人员的环境都是完整的编译环境+部署环境，有源代码，ssh，mysql client，git client，hadoop<br>client，spark client。定制了各种方便的脚本拉代码，重启单个服务，重启所有服务等等。</p>
+<p>同样，为了让RD能自己触发回归测试。我们在Jenkins上配置了相应的job，一个按键就能让我们的自动化测试项目跑到他的环境上测试。测试报告里有每一步骤的日志，失败截图，环境信息。后来case越来越多，运行越来越慢，一套测试下来2个小时，RD等不起。我们就分布式处理，从2小时降到了20几分钟。后来用这个job的RD越来越多，排队时间越来越长，所以我们计划着加资源，加机器。不让RD排队等待。</p>
+<p>于是我们的提测质量越来越好，因为RD自测的越来越好。</p>
+<h2 id="与人方便就是与己方便。"><a href="#与人方便就是与己方便。" class="headerlink" title="与人方便就是与己方便。"></a>与人方便就是与己方便。</h2><p>也许以前我会觉得这些事让他们自己操心去。但后来我发现，只有我让他们能开心的测试了。我自己才能开心的测试。否则一定是提测阶段我痛苦的像条狗。恩，与人方便与己方便。</p>
+<ul>
+<li>我们提升了RD的开发效率就能让他们更快的完成产品开发，我们也有更多的时间测试– <strong>与开发方便就是与己方便</strong></li>
+<li>我们让RD自测的更快更方便就能提升了提测质量，减少我们的工作量– <strong>与开发方便就是与己方便</strong></li>
+<li>我们给产品人员的预演环境做蓝绿部署，永远有最新的稳定产品给他们用。让他们及时纠正需求，更好的设计产品，减少返工– <strong>与产品方便就是与己方便</strong></li>
+<li>我们按运维标准承担了所有模块的编译出包的自动化，让运维在何时何地都能一键拿到他们想要的包，让他们更快更好的部署– <strong>与运维方便就是与己方便</strong></li>
+<li>我们承担了除产品环境外所有环境的部署和维护自动化，让所有人都从这些破事中解放出来，专注自己的事情让产品变得更好– <strong>与人方便就是与己方便</strong></li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>恩，这是我想到的方式，它没什么名字，没什么固定的套路。它就是一个思路，一个用自己的技术去解决团队中一个一个的痛点的思路。也许在你的团队中，我碰见的这些问题都不是问题。但总有属于你自己团队的问题。找到它，解决它，别让他们成为影响你产品质量的根源。<br><strong>我受谷歌影响颇深，所以路子十分像他们的工程生产力团队，但略有不同，我期望能由我们来辅佐甚至打通devops的路，说不定以后会有一个新的职位诞生，例如叫什么devops工程师，团队工程化工程师等等。产品质量已经不是单打独斗的天下了</strong></p>
+<blockquote>
+<p>文章来源于转载, 如有疑问, 请联系我,转载地址:<a href="https://testerhome.com/topics/6557" target="_blank" rel="noopener">https://testerhome.com/topics/6557</a> </p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/docker/" rel="tag"># docker</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/10/08/mdfiles/b798356898c6959487688e325ee7e17a/" rel="next" title="<span class=" title">测试开发之路--持续集成 (分支模型补充)">
+                <i class="fa fa-chevron-left"></i> <span class="title">测试开发之路--持续集成 (分支模型补充)</span>
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/10/08/mdfiles/f22e19fd059a9fb0308aa93c8d39d0d5/" rel="prev" title="<span class=" title">测试开发之路--持续集成">
+                <span class="title">测试开发之路--持续集成</span> <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">M</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">141</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#以质量为中心，发散式工作"><span class="nav-number">2.</span> <span class="nav-text">以质量为中心，发散式工作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#技术能力转变为生产力"><span class="nav-number">3.</span> <span class="nav-text">技术能力转变为生产力</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#与人方便就是与己方便。"><span class="nav-number">4.</span> <span class="nav-text">与人方便就是与己方便。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">M</span>
+
+  
+</div>
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
