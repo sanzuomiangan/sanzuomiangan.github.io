@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="docker,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="背景他姥爷又来了，他姥爷又忍不住寂寞打算码字了。 今天他姥爷想聊聊 环境的问题。因为这里面有很多的坑，环境管理的好能让生产力翻倍，管理不好会团队痛苦不堪。这个是我的感受。记得也就3个月前吧，项目刚启动。开发，测试，产品都在使用同一套环境。是每个模块的开发人员出一个人临时糊出来的环境。我们有个习惯就是每个迭代结束后都开一个总结会，记得那时候大家抱怨最多的就是环境了。这么多人公用一套环境，难免互相影响">
+<meta name="keywords" content="docker">
+<meta property="og:type" content="article">
+<meta property="og:title" content="&lt;span class=&quot;title&quot;&gt;测试开发之路--环境管理&lt;&#x2F;span&gt;">
+<meta property="og:url" content="http://yoursite.com/2019/10/09/mdfiles/6fe5b3242d2cff9fd91d1fb7d5745fb0/index.html">
+<meta property="og:site_name" content="M">
+<meta property="og:description" content="背景他姥爷又来了，他姥爷又忍不住寂寞打算码字了。 今天他姥爷想聊聊 环境的问题。因为这里面有很多的坑，环境管理的好能让生产力翻倍，管理不好会团队痛苦不堪。这个是我的感受。记得也就3个月前吧，项目刚启动。开发，测试，产品都在使用同一套环境。是每个模块的开发人员出一个人临时糊出来的环境。我们有个习惯就是每个迭代结束后都开一个总结会，记得那时候大家抱怨最多的就是环境了。这么多人公用一套环境，难免互相影响">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://testerhome.com/photo/2016/f0307458d8aace17d7c8ae6a5cfed228.png">
+<meta property="og:image" content="https://testerhome.com/photo/2016/60f791c5a1260a3288d0afe51d949ff6.png">
+<meta property="og:image" content="https://testerhome.com/photo/2016/d7f628d7f4e76b4d107effca19bc1ca7.png">
+<meta property="og:updated_time" content="2019-10-09T08:57:08.909Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="&lt;span class=&quot;title&quot;&gt;测试开发之路--环境管理&lt;&#x2F;span&gt;">
+<meta name="twitter:description" content="背景他姥爷又来了，他姥爷又忍不住寂寞打算码字了。 今天他姥爷想聊聊 环境的问题。因为这里面有很多的坑，环境管理的好能让生产力翻倍，管理不好会团队痛苦不堪。这个是我的感受。记得也就3个月前吧，项目刚启动。开发，测试，产品都在使用同一套环境。是每个模块的开发人员出一个人临时糊出来的环境。我们有个习惯就是每个迭代结束后都开一个总结会，记得那时候大家抱怨最多的就是环境了。这么多人公用一套环境，难免互相影响">
+<meta name="twitter:image" content="https://testerhome.com/photo/2016/f0307458d8aace17d7c8ae6a5cfed228.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/10/09/mdfiles/6fe5b3242d2cff9fd91d1fb7d5745fb0/">
+
+
+
+
+
+  <title><span class="title">测试开发之路--环境管理</span> | M</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">M</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">三座面干</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/09/mdfiles/6fe5b3242d2cff9fd91d1fb7d5745fb0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="M">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="M">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline"><span class="title">测试开发之路--环境管理</span></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-09T16:57:08+08:00">
+                2019-10-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Crawl/" itemprop="url" rel="index">
+                    <span itemprop="name">Crawl</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>他姥爷又来了，他姥爷又忍不住寂寞打算码字了。 今天他姥爷想聊聊 <strong>环境</strong><br>的问题。因为这里面有很多的坑，环境管理的好能让生产力翻倍，管理不好会团队痛苦不堪。这个是我的感受。记得也就3个月前吧，项目刚启动。开发，测试，产品都在使用同一套环境。是每个模块的开发人员出一个人临时糊出来的环境。我们有个习惯就是每个迭代结束后都开一个总结会，记得那时候大家抱怨最多的就是环境了。这么多人公用一套环境，难免互相影响，一会这个服务要重启，一会那个服务因为哪个bug挂了。再搭建几套环境也不现实，系统太复杂了，暂时没人能独立搭出来，维护的成本也太高。反正那时候大家都挺痛苦的。正好那时候基本没开发出什么功能，我还比较闲。而且本来我就在研究CI的方案，正好涉及到环境部署的问题。于是就想换个思路，以前做自动化部署大多是给测试人员服务的，这次给所有人定制环境。让每人都人手一套自己的环境。于是就这么干下去了。</p>
+<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><p>万事开头难，整合所有模块的部署细节往往是苦难的。因为这时候还没有配置管理，所有配置都是散落在各个不同的目录里。而且可能会变化。反正这时候就克服一下，以后有了配置管理方案就好了。</p>
+<h2 id="技术选型"><a href="#技术选型" class="headerlink" title="技术选型"></a>技术选型</h2><p>谈到环境，首先想到的就是自动化管理。我们之所以只占用一个QA很少部分的时间就支撑起20多套产品环境，依靠的就是高度自动化。一般自动化部署要么就是传统的脚本驱动模式，要么就是虚拟化技术。我选择了docker，有多方面的原因吧：</p>
+<ul>
+<li>一个是公司本来就是用docker搭建的基础服务，大家对docker也都熟悉了，起码使用上没什么障碍了。</li>
+<li>二是我希望给每个人都搭建一套独立的环境，未来可能起几十个甚至上百个环境，所以传统的脚本模式就不行了，新建环境成本太高，要解决很多依赖问题。而且产品中有几个模块的语言是node.js，scala，c++。都是编译时间长的典范，用传统的脚本驱动搭环境感觉一定会慢的像蜗牛。换成docker就很好了，首先由于虚拟化技术，做好镜像以后我们就没有依赖问题了。同时分成几个容器去部署不同的模块也可以加快部署时间。</li>
+<li>三是对资源的利用，docker本就是以轻量级和使用方便闻名。搭建这么多环境，我觉得也就只有docker能把资源利用到最好了。不会搭建个几套环境就把资源占满。</li>
+</ul>
+<h2 id="成型的结构图"><a href="#成型的结构图" class="headerlink" title="成型的结构图"></a>成型的结构图</h2><p><img src="https://testerhome.com/photo/2016/f0307458d8aace17d7c8ae6a5cfed228.png" alt><br>画的不好大家见谅。每一个模块都是一个容器，每套环境都有独立的数据库，共用一个hadoop集群和config<br>server。但是有一个容器装了单机版的集群做备用，以防万一。记得第一次启用的时候，一下子开了13套环境（这个数字还真不吉利。。。），到现在将近30套。基本做到了人手一套环境。其中细节不表了，有兴趣的学习一下docker吧。总之多语言构成的产品比较麻烦，每种语言在部署的时候都或多或少的有些问题</p>
+<h2 id="开发环境定制"><a href="#开发环境定制" class="headerlink" title="开发环境定制"></a>开发环境定制</h2><p>一开始就说了，环境不仅是给测试人员用，还要给开发人员用。于是就需要定制一些东西满足开发人员的要求。为了满足开发人员的需求就必然跟传统CI中的环境部署冲突。传统的测试环境部署方式一般是下面这样的：<br><img src="https://testerhome.com/photo/2016/60f791c5a1260a3288d0afe51d949ff6.png" alt><br>这样的部署方式有一个问题，环境中可能只有一个部署的jar包。也许这对测试人员来说足够了，能看log就行。<br>但对于开发人员来说就有诸多不便。我们发现开发人员很喜欢在环境中直接编译源文件做开发。有时候可能fix一个bug很简单，直接在环境中编译一下重新启动服务就试一下了。<br>这比写代码，push，merge，重新拉取代码，重新部署要快速简便的多。我们开发人员大多都用idea，大多都配置了remote<br>debug。所以只有一个jar包肯定是不行的。我们要在环境中保持一个完整的开发环境，例如完成的项目的git目录，git client，ssh，mysql<br>client，local<br>编码设置等等等等。同时要有很方便的方式重启服务，不能让开发人员在重启服务的时候那么麻烦的走重新启动容器，拉取代码等等这一套流程。那么解决方案是：</p>
+<ul>
+<li>抛弃编译服务器，直接在容器内编译，启动服务。做法也很简单，使用docker的entrypoint机制。在启动容器的时候拉取代码，编译并启动服务。</li>
+<li>在基础镜像中安装git client，ssh，mysql client等等等服务</li>
+<li>定制好各种重新启动服务等等的方便的功能性脚本。反正能自动化的就自动化起来。</li>
+</ul>
+<h2 id="测试环境定制"><a href="#测试环境定制" class="headerlink" title="测试环境定制"></a>测试环境定制</h2><p>测试环境跟开发环境又有一点不一样。 我们在测试环境中最怕的是什么？<br>部署一个环境的时候发现连冒烟测试都过不去。bug直接block测试流程，这时候只能等着开发修好bug再重新部署了。这很影响效率。 对于产品人员呢？<br>也一样的，产品人员有时候要跟老大，要跟客户演示，因为客户可能会来公司的。产品人员要演示最新的功能。但最新的功能可能还没有发布。需要在公司内找个环境演示。<br>所以不论是测试人员还是产品人员，都有一个稳定环境的需求。但其实我们避免不了bug的，我们部署一次环境的时候难免当时就有什么严重的bug。解决方案一般有两个，一个是把以前的部署的包做备份。另一个是学运维在线上的策略<br>–蓝绿部署。 我选择了后者，所以测试环境的结构就变成了下面这个样子：<br><img src="https://testerhome.com/photo/2016/d7f628d7f4e76b4d107effca19bc1ca7.png" alt><br>两套环境共用一个数据库和集群。 开发人员在提测的时候部署在stable1，<br>下一次部署的时候我们就部署在stable2。如果stable2是有问题的，例如冒烟测试没过。那么就切换回stable1测试。stable2就打回去让开发修bug。如此循环往复。我们保证始终有一套环境是可用的。</p>
+<h2 id="线上部署的定制"><a href="#线上部署的定制" class="headerlink" title="线上部署的定制"></a>线上部署的定制</h2><p>通过刚才的介绍我们发现我们是没有编译服务器的，我们在各自的容器里自行编译。这时候运维的同学就比较蛋疼。因为他们需要部署包来在线上或者进场进行部署。而我们的产品是比较复杂的，多语言构成的产品。让运维同学再搞一套编译服务器来生产部署包的成本也比较高。所以我跟运维的小伙伴商量了一下，还是复用我们现有的东西。其实就是我们新加了一个脚本。在已启动的经过测试的容器中把部署包copy出来。也就是说，我们的环境被当成了编译服务器</p>
+<h2 id="配置管理"><a href="#配置管理" class="headerlink" title="配置管理"></a>配置管理</h2><p>这个东西单独拿出来说是因为它比较重要，我们在没有配置管理方案之前，部署是很痛苦的。因为配置文件散落在各个地方，掌握这些信息的成本太高，而且十分不利于扩展。增加或者修改配置的结果往往都是要更改docker的镜像并让所有人重新部署环境。所以大家在做环境管理的时候，一定要先推配置管理方案。否则你会痛苦死。这是血淋淋的教训。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>暂时就分享到这吧，其实我们做的还有很多不足，毕竟我们的项目才成立了几个月，好多东西不完善。现在docker的容器都是跑在一个机器里。之后一旦环境多了，肯定把docker做成集群。还有一些镜像的减肥，脚本的优化，环境自检的机制等等都需要完善。这里就当抛砖引玉了。大家晚安，俺陪媳妇睡觉去了</p>
+<blockquote>
+<p>文章来源于转载, 如有疑问, 请联系我,转载地址:<a href="https://testerhome.com/topics/6058" target="_blank" rel="noopener">https://testerhome.com/topics/6058</a> </p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/docker/" rel="tag"># docker</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/10/09/mdfiles/548237665d606fa97e2df384f562d589/" rel="next" title="<span class=" title">测试开发之路 (工具篇)--Docker">
+                <i class="fa fa-chevron-left"></i> <span class="title">测试开发之路 (工具篇)--Docker</span>
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/10/09/mdfiles/99b2421c0c0f7eb073ccc43ee01ebb4e/" rel="prev" title="<span class=" title">测试开发之路 (工具篇)--docker 网络">
+                <span class="title">测试开发之路 (工具篇)--docker 网络</span> <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">M</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">151</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#准备工作"><span class="nav-number">2.</span> <span class="nav-text">准备工作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#技术选型"><span class="nav-number">3.</span> <span class="nav-text">技术选型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#成型的结构图"><span class="nav-number">4.</span> <span class="nav-text">成型的结构图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开发环境定制"><span class="nav-number">5.</span> <span class="nav-text">开发环境定制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试环境定制"><span class="nav-number">6.</span> <span class="nav-text">测试环境定制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线上部署的定制"><span class="nav-number">7.</span> <span class="nav-text">线上部署的定制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置管理"><span class="nav-number">8.</span> <span class="nav-text">配置管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">9.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">M</span>
+
+  
+</div>
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
